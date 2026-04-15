@@ -18,12 +18,9 @@ app.include_router(router)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
-@app.get("/", response_class=HTMLResponse)
-def home(request: Request):
-    return templates.TemplateResponse(
-        name="index.html",
-        context={"request": request}
-    )
+@app.get("/")
+def home():
+    return {"message": "Frontend route working"}
 
 @app.get("/health")
 def health():
