@@ -20,10 +20,13 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse(
-        name="index.html",
-        context={"request": request}
-    )
+    try:
+        return templates.TemplateResponse(
+            name="index.html",
+            context={"request": request}
+        )
+    except Exception as e:
+        return {"error": str(e)}   # 👈 THIS LINE
 
 @app.get("/health")
 def health():
