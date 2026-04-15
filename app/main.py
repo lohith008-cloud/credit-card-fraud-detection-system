@@ -18,15 +18,20 @@ app.include_router(router)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
-@app.get("/", response_class=HTMLResponse)
-def home(request: Request):
+# 👇 REPLACE THIS ROUTE ONLY
+@app.get("/")
+def home():
+    import traceback
     try:
         return templates.TemplateResponse(
-            name="index.html",
-            context={"request": request}
+            "index.html",
+            {"request": {}}
         )
     except Exception as e:
-        return {"error": str(e)}   # 👈 THIS LINE
+        return {
+            "error": str(e),
+            "trace": traceback.format_exc()
+        }
 
 @app.get("/health")
 def health():
