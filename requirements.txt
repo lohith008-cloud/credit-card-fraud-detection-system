@@ -9,3 +9,4 @@ pydantic
 evidently
 matplotlib
 seaborn
+jinja2
